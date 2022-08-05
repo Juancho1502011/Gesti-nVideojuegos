@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row py-4">
+    <h1 class="text-center">Géneros</h1>
+  </div>
+  <div class="row">
+    <p-table #dt1 [value]="arreglos" dataKey="id"
+             [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+             styleClass="p-datatable-gridlines"
+             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+             [globalFilterFields]="['id','nombre','anio','juego','clasificacion']">
+      <ng-template pTemplate="caption">
+        <form [formGroup]="formGroup">
+          <div class="d-flex">
+            <button pButton label="Insertar" class="p-button-success" icon="pi pi-plus-circle"
+                    (click)="insertarGenero()"></button>
+            <span class="p-input-icon-right ms-auto">
+                    <i class="pi pi-search"></i>
+              <input pInputText formControlName="buscar" type="text" placeholder="Buscar"/>
+              <button pButton class="p-button-info" icon="pi pi-search"
+                      (click)="buscar()"></button>
+          </span>
+          </div>
+        </form>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Año</th>
+          <th>Juego destacado</th>
+          <th>Game award</th>
+          <th>Clasificación</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-arreglo>
+        <tr>
+          <td>{{arreglo.id}}</td>
+          <td>{{arreglo.nombre}}</td>
+          <td>{{arreglo.anio}}</td>
+          <td>{{arreglo.juego}}</td>
+          <td class="text-center">
+            <div *ngIf="arreglo.ga; then thenBlock else elseBlock"></div>
+            <ng-template #thenBlock><i class="pi pi-check-circle"></i></ng-template>
+            <ng-template #elseBlock><i class="pi pi-times-circle"></i></ng-template>
+          </td>
+          <td>{{arreglo.clasificacion}}</td>
+          <td class="text-center">
+            <button pButton (click)="mostrarDetalle(arreglo.id)" class="p-button-info mx-1" icon="pi pi-list"></button>
+            <button pButton (click)="actualizarGenero(arreglo.id)" class="p-button-info mx-1"
+                    icon="pi pi-pencil"></button>
+            <button pButton (click)="eliminarGenero(arreglo.id)" class="p-button-danger mx-1"
+                    icon="pi pi-trash"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+

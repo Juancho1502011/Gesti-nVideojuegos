@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row justify-content-center text-center">
+    <h1>Género</h1>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Nombre: {{genero.nombre}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">ID: {{genero.id}}</h6>
+        <p class="card-text">Año: {{genero.anio}}</p>
+        <p class="card-text">Juego destacado: {{genero.juego}}</p>
+        <p class="card-text">Game award: {{genero.ga}}</p>
+        <p class="card-text">Clasificación: {{genero.clasificacion}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <h4>Videojuegos:</h4>
+    <p-table #dt1 [value]="genero.videojuegos" dataKey="id"
+             [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+             styleClass="p-datatable-gridlines"
+             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+             [globalFilterFields]="['id','nombre','ventas','precio','plataforma']">
+      <ng-template pTemplate="caption">
+        <form [formGroup]="formGroup">
+          <div class="d-flex">
+            <button pButton label="Insertar" class="p-button-success" icon="pi pi-plus-circle"
+                    (click)="insertarVideojuego()"></button>
+            <span class="p-input-icon-right ms-auto">
+                    <i class="pi pi-search"></i>
+              <input pInputText formControlName="buscar" type="text" placeholder="Buscar"/>
+              <button pButton class="p-button-info" icon="pi pi-search"
+                      (click)="buscar()"></button>
+          </span>
+          </div>
+        </form>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Ventas</th>
+          <th>Precio</th>
+          <th>Plataforma</th>
+          <th>Online</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-arreglo>
+        <tr>
+          <td>{{arreglo.id}}</td>
+          <td>{{arreglo.nombre}}</td>
+          <td>{{arreglo.ventas}}</td>
+          <td>{{arreglo.precio}}</td>
+          <td>{{arreglo.plataforma}}</td>
+          <td class="text-center">
+            <div *ngIf="arreglo.online; then thenBlock else elseBlock"></div>
+            <ng-template #thenBlock><i class="pi pi-check-circle"></i></ng-template>
+            <ng-template #elseBlock><i class="pi pi-times-circle"></i></ng-template>
+          </td>
+          <td class="text-center">
+            <button pButton (click)="actualizarVideojuego(arreglo.id)" class="p-button-info mx-1"
+                    icon="pi pi-pencil"></button>
+            <button pButton (click)="eliminarVideojuego(arreglo.id)" class="p-button-danger mx-1"
+                    icon="pi pi-trash"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

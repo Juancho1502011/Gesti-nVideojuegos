@@ -1,0 +1,66 @@
+<div class="Container row align-items-center justify-content-center" *ngIf="formGroup">
+  <div class="col-4 text-center">
+    <h1 class="my-3">Géneros</h1>
+    <h3 class="my-4">{{(genero)? 'Actualizar' : 'Insertar'}} Género</h3>
+    <form [formGroup]="formGroup">
+      <div class="input-group mb-3">
+        <span class="input-group-text">Nombre</span>
+        <input type="text" class="form-control" id="nombre" formControlName="nombre"  aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+      <div *ngIf="formGroup.get('nombre')">
+        <div class="alert alert-warning" role="alert" *ngIf="formGroup.get('nombre')?.invalid &&
+                formGroup.get('nombre')?.touched && formGroup.get('nombre')?.dirty">
+          <span *ngIf="formGroup.get('nombre')?.hasError('required')">Nombre requerido</span>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Año</span>
+        <input type="text" class="form-control" formControlName="año"  aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+      <div *ngIf="formGroup.get('año')">
+        <div class="alert alert-warning" role="alert" *ngIf="formGroup.get('año')?.invalid &&
+                formGroup.get('año')?.touched && formGroup.get('año')?.dirty">
+          <span *ngIf="formGroup.get('año')?.hasError('required')">Año requerido</span>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Juego destacado</span>
+        <input type="text" class="form-control" formControlName="juego"   aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+      <div *ngIf="formGroup.get('juego')">
+        <div class="alert alert-warning" role="alert" *ngIf="formGroup.get('juego')?.invalid &&
+                formGroup.get('juego')?.touched && formGroup.get('juego')?.dirty">
+          <span *ngIf="formGroup.get('juego')?.hasError('required')">Juego destacado requerido</span>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" >Game award</span>
+        <select class="form-select" formControlName="ga" aria-label="Default select example">
+          <option value="0">No</option>
+          <option value="1">Si</option>
+        </select>
+      </div>
+
+      <div *ngIf="formGroup.get('ga')">
+        <div class="alert alert-warning" role="alert" *ngIf="formGroup.get('ga')?.invalid &&
+                formGroup.get('ga')?.touched">
+          <span *ngIf="formGroup.get('ga')?.hasError('required')">Game award requerido</span>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" >Clasificación</span>
+        <input type="text" class="form-control" formControlName="clasificacion" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+      <div *ngIf="formGroup.get('clasificacion')">
+        <div class="alert alert-warning" role="alert" *ngIf="formGroup.get('clasificacion')?.invalid &&
+                formGroup.get('clasificacion')?.touched && formGroup.get('clasificacion')?.dirty">
+          <span *ngIf="formGroup.get('clasificacion')?.hasError('required')">Clasificación requerida</span>
+        </div>
+      </div>
+      <button class="btn btn-primary my-3" (click)="actualizarGenero()">
+        {{(genero)? 'Actualizar' : 'Insertar'}}
+      </button>
+    </form>
+  </div>
+
+</div>
